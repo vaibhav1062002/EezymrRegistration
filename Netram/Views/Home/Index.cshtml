@@ -1,0 +1,987 @@
+﻿
+
+
+@model List<Netram.Models.PackageDetailsEntity>
+
+
+@using Newtonsoft.Json
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>EzyEMR - Registration Form</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="~/css/Style.css" asp-append-version="true" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <style>
+        .otp-field {
+            display: flex;
+        }
+        
+        .otp-field input {
+            width: 50px;
+            font-size: 32px;
+            padding: 0px;
+            text-align: center;
+            border-radius: 5px;
+            margin: 2px;
+            border: 2px solid #000000;
+            background: #ffffff;
+            font-weight: bold;
+            color: #279aff;
+            outline: none;
+            transition: all 0.1s;
+        }
+        
+        .otp-field input:focus {
+            border: 2px solid #279aff;
+            box-shadow: 0 0 2px 2px #57abf4;
+        }
+        
+        .disabled {
+            opacity: 0.5;
+        }
+        
+        .space {
+            margin-right: 1rem !important;
+        }
+        
+          
+        @@media screen and (max-width: 1200px) {
+            .col-sm-6 {
+                -ms-flex: 0 0 50%;
+                flex: 0 0 100%;
+                max-width: 100%;
+                padding-top: 15px;
+            }
+        }
+      
+    </style>
+</head>
+
+<body>
+    <!-- partial:index.partial.html -->
+    <!--  <form action="/EzyemrForm/Index" method="post">
+            <label asp-for="LeadDate" class="control-label"></label>
+            <input asp-for="LeadDate" name="Number" class="form-control" />
+            <span asp-validation-for="LeadDate" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" > </button>
+        </form> -->
+
+    <!--PEN CONTENT -->
+    <div class="content">
+        <!--content inner-->
+        <div class="content__inner">
+            
+            <div class="container overflow-hidden" style="padding-top:40px;">
+                <!--multisteps-form-->
+                <div class="multisteps-form">
+                    <!--progress bar-->
+                    <div class="row">
+                        <div class="col-12 col-lg-4 m-auto" align="center">
+                            <img src="~/Images/logo.png" style="height:80%; width:80%;">
+                        </div>
+                        <div class="col-12 col-lg-8 ml-auto mr-auto mb-4">
+                            <div class="multisteps-form__progress">
+                                <button class="multisteps-form__progress-btn js-active" type="button" title="User Info">User Login</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="Address">Registration Form</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="Order Info">Select Package</button>
+                                <!-- <button class="multisteps-form__progress-btn" type="button" title="Comments"></button> -->
+                            </div>
+                        </div>
+                    </div>
+                    <!--form panels-->
+                    <div class="row" style="padding-top:40px;">
+                        <div class="col-12 col-lg-4 m-auto" align="center">
+                            <img src="~/Images/register-lion.png" style="height:100%; width:100%;">
+                        </div>
+                        <div class="col-12 col-lg-8 m-auto">
+                            <div class="multisteps-form__form">
+                                <!--single form panel-->
+
+                                <div class="multisteps-form__panel shadow p-4 rounded bg-white js-active" data-animation="scaleIn">
+
+                                    <!-- number form field start-->
+                                    <div>
+                                        <h3 class="multisteps-form__title">User Login</h3>
+
+                                        <div class="form-row mt-4">
+                                            <div class="col">
+                                                <input class="multisteps-form__input form-control" type="Number" name="Number" id="Number" placeholder="Enter Mobile Number" pattern="\d{10}" title="Please enter a 10-digit valid phone number (numbers only)" required/>
+                                            </div>
+                                        </div>
+
+                                        <div class="button-row d-flex mt-4">
+                                                <button class="btn btn-primary ml-auto " id="numSubmint" >Submit</button>
+                                            <button class="btn btn-primary ml-auto " type="button" id="numSubmintNext" title="Next" hidden>Next</button>
+                                        </div>
+                                    </div>
+
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+
+
+                                    <!-- number form field End-->
+
+                                    <div>
+                                        <!-- <form action="/EzyemrForm/VerifyOtp" method="post">-->
+                                        <h3 class="multisteps-form__title">OTP Verification</h3>
+
+                                        
+                                        <div class="form-row mt-4">
+                                            <div class="col otp-field">
+                                                    <input type="text" maxlength="1" id="a" name="a" />
+                                                    <input type="text" maxlength="1" id="b" name="b" />
+                                                    <input class="space" type="text" maxlength="1" id="c" name="c" />
+                                                    <input type="text" maxlength="1" id="d"  name="d" />
+                                                    <input type="text" maxlength="1" id="e" name="e" />
+                                                    <input type="text" maxlength="1" id="f" name="f" />
+                                                </div>
+                                        </div>
+                                        
+                                        <div class="button-row d-flex mt-4">
+                                             <!-- <button type="submit" class="btn btn-primary">submit </button>-->
+                                                <button  class="btn btn-primary ml-auto " id="OTP" title="Next">Verify</button>
+                                            <button class="btn btn-primary ml-auto " type="button" id="OTPNext" title="Next" hidden>Next</button>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                    
+                                </div>
+
+
+                                <!--single form panel-->
+
+
+                                <!--Registration Form start-->
+                               
+                                <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
+                                    <h3 class="multisteps-form__title">Registration Form</h3>
+                                    <div class="multisteps-form__content">
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-4">
+                                                    <input asp-for="DoctorName" class="multisteps-form__input form-control" type="text" placeholder="Doctor Name*" id="DoctorName" name="DoctorName"  />
+                                                <span id="DoctorNameValidation" style="color:red"></span>
+                                            </div>
+
+                                            <div class="col-12 col-sm-4 mt-4 mt-sm-0">
+                                                <input class="multisteps-form__input form-control" type="text" placeholder="Degree*" asp-for="Degree" name="Degree" id="Degree" required />
+                                                <span id="DegreeValidation" style="color:red"></span>
+                                            </div>
+
+                                            <div class="col-12 col-sm-4 mt-4 mt-sm-0">
+                                                <input class="multisteps-form__input form-control" type="text" placeholder="Specialization*" asp-for="Specialization" id="Specialization" name="Specialization" required />
+                                                <span id="SpecializationValidation" style="color:red"></span>
+                                            </div>
+                                        </div>
+
+                                        </div>
+
+                                            
+
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                    <input class="multisteps-form__input form-control" type="text" placeholder="Registration Number*" id="RegistrationNumber" name="RegistrationNumber"  required />
+                                                <span id="RegistrationNumberValidation" style="color:red"></span>
+                                            </div>
+
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                    <input class="multisteps-form__input form-control" type="email" placeholder="Email*" asp-for="Email" name="Email" id="Email" required />
+                                                <span id="EmailValidation" style="color:red"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                    <input class="multisteps-form__input form-control" type="text" placeholder="Mobile Number*"  name="MobileNumber"  asp-for="MobileNumber" id="MobileNumber" readonly required />
+                                                <span id="MobileNumberValidation" style="color:red"></span>
+                                            </div>
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                    <input class="multisteps-form__input form-control" type="text" placeholder="Hospital Name" name="HospitalName" id="HospitalName" asp-for="HospitalName" required />                
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                <label> Hospital Logo :</label>
+                                            </div>
+
+                                            <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                                    <input type="file" placeholder="Hospital Logo" id="HospitalLogo" asp-for="HospitalLogo" required />
+                                                          <span asp-validation-for="HospitalLogo" class="text-danger"></span>
+                                                </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col">
+                                                    <input class="multisteps-form__input form-control" type="text" name="Address" asp-for="Address" id="Address" placeholder="Address" />
+                                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+
+                                            <div class="col-6 col-sm-6 mt-4 mt-sm-0">
+                                                    <select class="multisteps-form__select form-control" name="State" id="State" asp-for="State" required>
+                                               
+                                               @*  <option value="Maharashtra">Maharashtra</option>
+                                                <option value="Panjab">Panjab</option> *@
+                                                  </select>
+                                                    <span asp-validation-for="State" class="text-danger"></span>
+                                            </div> 
+
+                                        <div class="col-6 col-sm-3 mt-3 mt-sm-0">
+                                            <select class="multisteps-form__select form-control" name="City"0 id="City" asp-for="City" required>
+                                                <option value="" selected="selected" disabled>Select City</option>
+                                               @*  <option value="Amravti">Amravti</option>
+                                                <option value="Pune">Pune</option> *@
+                                            </select>
+                                        </div>
+
+
+                                        <div class="col-6 col-sm-3 mt-3 mt-sm-0">
+                                                    <input class="multisteps-form__input form-control" type="text" placeholder="Pin Code" asp-for="Pincode" name="Pincode" id="Pincode" required />
+                                             <span id="PincodeValidation" style="color:red"></span> 
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row mt-4">
+                                            <div class="col-6 col-sm-3 mt-3 mt-sm-0">
+                                                <label>NABH Accredation:</label>
+                                            </div>
+                                            <div class="col-6 col-sm-1 mt-4 mt-sm-0" align="left">
+                                                <label class="b-radio radio">
+                                                        <input type="radio" name="NABHAccredation" value="yes" asp-for="NABHAccredation"  checked>
+                                            <span class="control-label">Yes</span>
+                                          </label>&nbsp;
+                                            </div>
+                                            <div class="col-6 col-sm-1 mt-4 mt-sm-0" align="left">
+                                                <label class="b-radio radio">
+                                                        <input type="radio" name="NABHAccredation" value="no" asp-for="NABHAccredation">
+                                            <span class="control-label">No</span>
+                                          </label>
+                                                    <span asp-validation-for="NABHAccredation" class="text-danger"></span>
+                                            </div>
+
+
+                                            <div class="col-6 col-sm-4 mt-4 mt-sm-0">
+                                                <label>Impanelment with Insurance Company :</label>
+                                            </div>
+                                            <div class="col-6 col-sm-1 mt-4 mt-sm-0" align="left">
+                                                <label class="b-radio radio">
+                                                        <input type="radio" name="Insurance" value="yes1" asp-for="Insurance" checked>
+                                          <span class="control-label">Yes</span>
+                                        </label>&nbsp;
+                                            </div>
+                                            <div class="col-6 col-sm-1 mt-4 mt-sm-0" align="left">
+                                                <label class="b-radio radio">
+                                                        <input type="radio" name="Insurance" value="no1" asp-for="Insurance">
+                                          <span class="control-label">No</span>
+                                        </label>
+                                            </div>
+                                                <span asp-validation-for="Insurance" class="text-danger"></span>
+                                        </div>
+                                        
+
+                                        <div class="button-row d-flex mt-4">
+                                                <button class="btn btn-primary js-btn-prev" type="button" title="Prev" disabled>Prev</button>
+                                                <button class="btn btn-primary ml-auto " type="button" id="Registration" title="Next">Next</button>
+                                                <button class="btn btn-primary ml-auto " type="button" id="RegistrationNext" title="Next" hidden>Next</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!--Registration Form End-->
+                                
+                                
+                               @*  Select Package form start *@
+                               <form>
+                                <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
+                                    <h3 class="multisteps-form__title">Select Package</h3>
+                                    <div class="multisteps-form__content">
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-6">
+                                                <input class="multisteps-form__input form-control" type="number" placeholder="Number of Doctor" name="NumberOfDoctor" id="NumberOfDoctor" asp-for="NumberOfDoctor" required />
+                                                    <span id="NumberOfDoctorValidation" style="color:red"></span>
+                                            </div>
+
+
+                                            <div class="col-6 col-sm-6 mt-4 mt-sm-0">
+                                       <select class="multisteps-form__select form-control" name="Fertility" id="Fertility" asp-for="Fertility" required>
+                                        <option selected="selected" disabled>Select Fertility</option>
+                                                      @*   @foreach (var list in Model)
+                                                        {
+                                                            <option value="@list.Fertility">@list.Fertility</option>
+                                                        } *@
+                                                      
+                                     </select>
+                                                    <span id="FertilityValidation" style="color:red"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row mt-4">
+                                            <div class="col-6 col-sm-6 mt-4 mt-sm-0">
+                                                    <select class="multisteps-form__select form-control" name="Package" id="Package" asp-for="Package" required disabled>
+                                                        <option selected disabled>Select Package</option>
+                                                    </select>
+                                                    <span id="PackageValidation" style="color:red"></span>
+                                            </div>
+                                            <div class="col-12 col-sm-6" align="center">
+                                                <label for="price"id="setAmount"  style="font-size:20px;">₹ 0 /-</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-6 col-sm-6 mt-4 mt-sm-0">
+                                                <label class="b-radio radio">
+                                                    <input type="checkbox" name="ApplyCoupon" value="yes" id="ApplyCoupon" asp-for="ApplyCoupon">
+                                                    <span asp-validation-for="ApplyCoupon" class="text-danger"></span>
+                                                    <span class="control-label"> &nbsp;Apply Referral</span>
+                                            </label>
+                                            </div>
+                                            <div class="col-12 col-sm-6" align="center">
+                                                <input class="multisteps-form__input form-control" type="text" placeholder="Referral Code" name="CouponNumber" id="CouponNumber" asp-for="CouponNumber" />
+                                                <span id="CouponNumberValidate" style="color:red"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-12 mt-4 mt-sm-0">
+                                                <label class="b-radio radio">
+                                                    <input type="checkbox" name="TAndC" value="yes" id="TAndC" asp-for="TAndC">
+                                            <span class="control-label"> &nbsp;<a href="">Terms And Conditions </a></span>
+                                                      
+                                          </label>
+                                                    <p id="TAndCValidation" style="color:red"></p>
+                                            </div>
+                                        </div> 
+                                            <input id="PackagePrice" asp-for="PackagePrice" name="PackagePrice"  hidden/>
+
+                                        <div class="button-row d-flex mt-4">
+                                            <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Prev</button>
+                                            <button class="btn btn-success ml-auto" type="button"id="SelectPackage" title="Submit">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                </form>
+                                @*  Select Package form End *@
+
+                            </div>
+                            <div class="alert alert-danger my-4 text-center" style="display:none" id="invalidOtp" role="alert">
+                                  Invalid  OTP Please Try Again ...!
+                            </div>
+                        <div class="alert alert-danger my-4 text-center" style="display:none;width: 100%;" id="invalidNumber" role="alert">
+                                Invalid Number Please Enter 10 Digit Valid Number ...!
+                            </div>
+
+                          
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- partial -->
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7902240890164332" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyC1kU2qPwMsA-VTbi1fm6kb9M8d7utT0rI&libraries=places"></script>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?countrycode:IN&key=AIzaSyAuoy_mOPfYGqoZDE2JUT0aceQFEe73yZE&libraries=places"></script>
+
+    <script src="~/js/script.js"></script>
+
+    <script>
+    
+        var PackagePricesetvalue = "";
+
+        window.onload =() => {
+
+            //hide verify button
+            $("#OTP").hide();
+
+            var list = @Html.Raw(JsonConvert.SerializeObject(ViewBag.PackageDetails));
+            var jsonString = JSON.stringify(list);
+            var jsonArray = JSON.parse(jsonString);
+
+            var uniqueFertility = jsonArray.reduce(function (acc, current) {
+                if (!acc[current.Fertility]) {
+                    acc[current.Fertility] = current;
+                }
+                return acc;
+            }, {});
+
+            var uniqueFertilityArray = Object.values(uniqueFertility);
+
+            var SetFertility = $("#Fertility");
+
+            uniqueFertilityArray.forEach(function (val){
+                var option = document.createElement('option');
+                option.value = val.Fertility;
+                option.text = val.Fertility;
+                SetFertility.append(option);
+
+            });
+        }
+
+        $("#Fertility").on("change", () => {
+            var FertilityName = $("#Fertility").val();
+
+            
+             var list = @Html.Raw(JsonConvert.SerializeObject(ViewBag.PackageDetails));
+             var jsonString = JSON.stringify(list);
+             var jsonArray = JSON.parse(jsonString);
+
+            
+
+            
+
+          
+          
+            //filtering array based on nuser input
+            var package = jsonArray.filter(function (val) {
+                return val.Fertility.trim() === FertilityName.trim();
+            });
+
+
+
+
+            if(package != null) {
+                $("#Package").prop("disabled", false);
+
+                var selectPackage = document.getElementById("Package");
+
+                selectPackage.innerHTML = '';
+
+                package.forEach(function (val) {
+                    var option = document.createElement('option');
+                    option.value = val.Package;
+                    option.text = val.Package;
+                    selectPackage.appendChild(option);
+                    
+                });
+                
+              var selectedPackageValue =  document.getElementById("Package").value;
+       
+                    var price = package.find(function (val) {
+                        return val.Fertility == FertilityName && val.Package == selectedPackageValue;
+                    })
+
+                    document.getElementById("setAmount").innerHTML = "₹ " + price.Price + "/- ";
+
+                PackagePricesetvalue = document.getElementById("PackagePrice");
+                PackagePricesetvalue.value = price.Price;
+            }
+
+            
+          
+
+            $("#Package").on("change", () => {
+                console.log("good morning");
+                var getFertilityName = $("#Fertility").val();
+                var getpackageName = $("#Package").val();
+
+
+                var setprice = package.find(function (val) {
+                    return val.Fertility == getFertilityName && val.Package == getpackageName;
+                });
+
+                if (setprice !== undefined) {
+                    console.log(setprice); 
+                    document.getElementById("setAmount").innerHTML = "₹ " + setprice.Price + "/- ";
+                    PackagePricesetvalue = document.getElementById("PackagePrice");
+                    PackagePricesetvalue.value = setprice.Price;
+
+                        } else {
+                    console.log("Matching object not found.");
+                }
+
+
+
+                //document.getElementById("setAmount").innerHTML = "₹ " + setprice.Price + "/- ";
+            });
+
+        });
+
+       
+       
+
+        //genrating OTP  **************************************************************************************************************************************************************************
+        document.getElementById("numSubmint").addEventListener('click', function (event) {
+            event.preventDefault();
+            var Number = $("#Number").val();
+            console.log(Number.length);
+
+           if (Number.length == 10){
+
+                $.ajax({
+                    url: "EzyemrForm/Index",
+                    method: "POST",
+                    data: { Number: Number },
+                    success: function (data) {
+                        data = JSON.parse(data);
+                        console.log(data);
+                        $("#MobileNumber").val(data);
+                        var validNumber = $("#invalidNumber");
+                        validNumber.hide();
+
+                        $("#OTP").show();
+                        $("#numSubmint").hide();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                        var invalidNumber1 = $("#invalidNumber");
+                        invalidNumber1.show();
+                    }
+                })
+           }
+            else {
+               var invalidNumber2 = $("#invalidNumber");
+                invalidNumber2.show();
+            }
+          
+        });
+
+
+        //verifyng OTP*****************************************************************************************************************************************************************************
+        document.getElementById("OTP").addEventListener('click', function (event) {
+            event.preventDefault();
+            var a = $("#a").val();
+            var b = $("#b").val();
+            var c = $("#c").val();
+            var d = $("#d").val();
+            var e = $("#e").val();
+            var f = $("#f").val();
+
+            var userEnteredOtp = a + b + c + d + e + f;
+
+            $.ajax({
+                url: "/EzyemrForm/VerifyOtp",
+                method: "POST",
+                data: { userOtp: userEnteredOtp },
+                success: function (data) {
+                    console.log(data.number);
+                    console.log("vaibhav");
+                    if (data.number === 1) {
+                        var button = $("#OTPNext");
+                        button.addClass("js-btn-next");
+                        button.click();
+                        var valid = $("#invalidOtp");
+                        valid.hide();
+                       
+                    }
+                    else {
+                        var invalid1 = $("#invalidOtp");
+                        invalid1.show();
+
+                    }
+
+                },
+                error: function (err) {
+                    console.log("err");
+                    console.error(err);
+                    var invalid2 = $("#invalidOtp");
+                    invalid2.show();
+                }
+            });
+        });
+
+
+
+
+// registration form *********************************************************************************************************************************************************************************
+        document.getElementById("Registration").addEventListener('click', function (e)
+        {
+            e.preventDefault();
+            var DoctorName = $("#DoctorName").val();
+            var Specialization = $("#Specialization").val();
+            var RegistrationNumber = $("#RegistrationNumber").val();
+            var Email = $("#Email").val();
+            var MobileNumber = $("#MobileNumber").val();
+            var HospitalName = $("#HospitalName").val();
+            var Address = $("#Address").val();
+            var State = $("#State").val();
+            var City = $("#City").val();
+            var PincodeInput = $("#Pincode").val();
+            var NABHAccredation = $('input[name="NABHAccredation"]:checked').val();
+            var Insurance = $('input[name="Insurance"]:checked').val();
+            var HospitalLogo = $('#HospitalLogo')[0].files[0];
+            var Degree = $("#Degree").val();
+            
+            // pincode validation 
+            var pincodePattern = /^[1-9][0-9]{5}$/;
+            $("#PincodeValidation").text("");
+            if (pincodePattern.test(PincodeInput)) {
+                var Pincode = PincodeInput;
+                console.log(Pincode)
+
+            }
+            else {
+                $("#PincodeValidation").text("Please Enter 6 Digit Valid Pincode.");
+            }
+
+            
+            //fieds validation  
+            if (DoctorName === null || DoctorName.trim() === "") {
+                $("#DoctorNameValidation").text("Please enter Doctor Name.");
+            } else {
+                $("#DoctorNameValidation").text(""); // Clear the error message
+            }
+
+            if (Specialization === null || Specialization.trim() === "") {
+                $("#SpecializationValidation").text("Please enter Specialization.");
+            } else {
+                $("#SpecializationValidation").text(""); // Clear the error message
+            }
+
+            if (RegistrationNumber === null || RegistrationNumber.trim() === "") {
+                $("#RegistrationNumberValidation").text("Please enter Registration Number.");
+            } else {
+                $("#RegistrationNumberValidation").text(""); // Clear the error message
+            }
+
+            if (Email === null || Email.trim() === "") {
+                $("#EmailValidation").text("Please enter Email.");
+            } else {
+                $("#EmailValidation").text(""); // Clear the error message
+            }
+
+            if (MobileNumber === null) {
+                $("#MobileNumberValidation").text("Please enter Mobile Number.");
+            } else {
+                $("#MobileNumberValidation").text(""); // Clear the error message
+            }
+            if (Degree === null || Degree.trim() === "") {
+                $("#DegreeValidation").text("Please enter Degree.");
+            } else {
+                $("#DegreeValidation").text(""); // Clear the error message
+            }
+            
+            
+
+
+            // Create a FormData object and append the file input to it
+           var formData = new FormData();
+            
+            formData.append('HospitalLogo', HospitalLogo); // 'file' is the key that will be used on the server-side to retrieve the file
+
+            // Append other form data to the FormData object
+            formData.append('DoctorName', DoctorName);
+            formData.append('Specialization', Specialization);
+            formData.append('RegistrationNumber', RegistrationNumber);
+            formData.append('Email', Email);
+            formData.append('MobileNumber', MobileNumber);
+            formData.append('HospitalName', HospitalName);
+            formData.append('Address', Address);
+            formData.append('State', State);
+            formData.append('City', City);
+            formData.append('Pincode', Pincode);
+            formData.append('NABHAccredation', NABHAccredation);
+            formData.append('Insurance', Insurance);
+            formData.append('Degree', Degree);
+            
+
+            // Send the FormData object with the file via AJAX
+            $.ajax({
+                url: "/EzyemrForm/RegistrationStore",
+                method: "POST",
+                data: formData,
+                processData: false,  // Prevent jQuery from processing the data
+                contentType: false,  // Prevent jQuery from setting contentType
+                success: function (data) {
+                    console.log(data);
+                    if (data == 1) {
+                        const button = $("#RegistrationNext");
+                        button.addClass("js-btn-next");
+                        button.click();
+                    }
+                   else{
+                        var invalidRegistration = $("#invalidRegistration");
+                        invalidRegistration.show();
+                   }
+                },
+                error: function (err) {
+                    console.error(err);
+                    console.log("registration err");
+                }
+            });
+        });
+
+
+     
+    
+//Select Package *************************************************************************************************************************************************************************************
+
+        document.getElementById("SelectPackage").addEventListener("click", (e) => {
+            e.preventDefault();
+            var ApplyCoupon;
+            var TAndC;
+            var CouponNumber = $("#CouponNumber").val();
+
+            var PackagePrice = document.getElementById("PackagePrice").value; 
+
+            var checkbox1 = document.getElementById("ApplyCoupon");
+            if (checkbox1.checked) {
+                ApplyCoupon = $("#ApplyCoupon").val();
+
+                if (CouponNumber === null || CouponNumber.trim() === "") {
+                    $("#CouponNumberValidate").text("Please enter referral code.");
+                } else {
+                    $("#CouponNumberValidate").text(""); // Clear the error message
+                }
+
+            } else {
+                ApplyCoupon = "no";
+                $("#CouponNumberValidate").text("");
+            }
+
+            var NumberOfDoctor = $("#NumberOfDoctor").val();
+            var Fertility = $("#Fertility").val();
+            var Package = $("#Package").val();
+           
+
+            var checkbox2 = document.getElementById("TAndC");
+            if (checkbox2.checked) {
+                 TAndC = $("#TAndC").val();
+            }
+            else { TAndC = null }
+            
+
+
+            //validation
+            if (NumberOfDoctor === null || NumberOfDoctor.trim() === "") {
+                $("#NumberOfDoctorValidation").text("Please enter NumberOfDoctor.");
+            } else {
+                $("#NumberOfDoctorValidation").text(""); // Clear the error message
+            }
+            if (Fertility === null || Fertility.trim() === "") {
+                $("#FertilityValidation").text("Please Select Fertility.");
+            } else {
+                $("#FertilityValidation").text(""); // Clear the error message
+            }
+            if (Package === null || Package.trim() === "") {
+                $("#PackageValidation").text("Please selct Package.");
+            } else {
+                $("#PackageValidation").text(""); // Clear the error message
+            }
+            if (TAndC === null || TAndC.trim() === "") {
+                $("#TAndCValidation").text("Please Accept The Term And Conditions.");
+            } else {
+                $("#TAndCValidation").text(""); // Clear the error message
+            }
+
+            var formData = new FormData();
+
+            formData.append('NumberOfDoctor', NumberOfDoctor);
+            formData.append('Fertility', Fertility);
+            formData.append('Package', Package);
+            formData.append('ApplyCoupon', ApplyCoupon);
+            formData.append('CouponNumber', CouponNumber);
+            formData.append('TAndC', TAndC);
+            formData.append('PackagePrice', PackagePrice);
+
+          
+
+            $.ajax({
+                url: "/EzyemrForm/SelectPackage",
+                method: "POST",
+                data: formData,
+                processData: false,  // Prevent jQuery from processing the data
+                contentType: false,  // Prevent jQuery from setting contentType
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            })
+        });
+
+
+        
+  
+
+
+
+
+
+
+
+
+
+
+        const inputs = document.querySelectorAll(".otp-field input");
+        inputs.forEach((input, index) => {
+            input.dataset.index = index;
+            input.addEventListener("keyup", handleOtp);
+            input.addEventListener("paste", handleOnPasteOtp);
+        });
+
+        function handleOtp(e) {
+            /**
+             * <input type="text" 👉 maxlength="1" />
+             * 👉 NOTE: On mobile devices `maxlength` property isn't supported,
+             * So we to write our own logic to make it work. 🙂
+             */
+            const input = e.target;
+            let value = input.value;
+            let isValidInput = value.match(/[0-9a-z]/gi);
+            input.value = "";
+            input.value = isValidInput ? value[0] : "";
+            let fieldIndex = input.dataset.index;
+            if (fieldIndex < inputs.length - 1 && isValidInput) {
+                input.nextElementSibling.focus();
+            }
+            if (e.key === "Backspace" && fieldIndex > 0) {
+                input.previousElementSibling.focus();
+            }
+            if (fieldIndex == inputs.length - 1 && isValidInput) {
+                submit();
+            }
+        }
+
+        function handleOnPasteOtp(e) {
+            const data = e.clipboardData.getData("text");
+            const value = data.split("");
+            if (value.length === inputs.length) {
+                inputs.forEach((input, index) => (input.value = value[index]));
+                submit();
+            }
+        }
+
+        function submit() {
+            console.log("Submitting...");
+            // 👇 Entered OTP
+            let otp = "";
+            inputs.forEach((input) => {
+                otp += input.value;
+                input.disabled = true;
+                input.classList.add("disabled");
+            });
+            console.log(otp);
+            // 👉 Call API below
+        }
+
+
+
+
+        // autofill api  location ***************************************************************************************************
+
+   
+
+        var geocoder = new google.maps.Geocoder();
+        var indiaBounds = new google.maps.LatLngBounds(
+            new google.maps.LatLng(6.4627, 68.1097), // Southwest corner of India
+            new google.maps.LatLng(35.6745, 97.3956)  // Northeast corner of India
+        );
+
+        var states = [];
+
+        for (var lat = 6.4627; lat <= 35.6745; lat += 1.0){
+            for (var lng = 68.1097; lng <= 97.3956; lng += 1.0) {
+                var randomLatLng = new google.maps.LatLng(lat, lng);
+
+                if (indiaBounds.contains(randomLatLng)) {
+                    geocoder.geocode({ 'location': randomLatLng }, function (results, status) {
+                        if (status === google.maps.GeocoderStatus.OK) {
+                            var state = results.find(function (result) {
+                                return result.types.includes('administrative_area_level_1') && result.formatted_address.includes('India');
+                            });
+
+                            if (state) {
+                                var stateName = state.formatted_address.split(',')[0].trim();
+                                if (!states.includes(stateName)) {
+                                    states.push(stateName);
+                                }
+                            }
+                        } else {
+                            console.error('Geocoder failed due to: ' + status);
+                        }
+                    });
+                }
+            }
+        }
+
+        console.log("vaibhav star");
+        console.log(states);
+
+        // Wait for all geocoding requests to finish, then sort and log the states
+        setTimeout(function () {
+            states.sort(); 
+                   stateOption = $("#State");
+            states.forEach(function (val) {
+                var option = document.createElement('option');
+                option.value = val;
+                option.text = val;
+                stateOption.append(option);
+
+            });
+        }, 10000);
+
+
+
+
+
+        
+
+  
+      
+       
+
+        
+
+
+
+
+
+        
+
+ // get all city related to  state
+
+        document.getElementById("State").addEventListener("change", function () {
+            var placesService = new google.maps.places.PlacesService(document.createElement('div'));
+            var stateInput = document.getElementById("State").value;
+            var CityOption = $("#City"); // Assuming you want to append options to a <select> element with id "City"
+
+            var request = {
+                query: 'cities in ' + stateInput,
+                fields: ['name']
+            };
+
+            // Perform the places search request
+            placesService.textSearch(request, function (results, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    // Clear existing options before adding new ones
+                    CityOption.empty();
+
+                    // Iterate through the results and add city names as options
+                    for (var i = 0; i < results.length; i++) {
+                        var option = document.createElement('option');
+                        option.value = results[i].name;
+                        option.text = results[i].name;
+                        CityOption.append(option);
+                    }
+                } else {
+                    console.error('Places service request failed. Status: ' + status);
+                }
+            });
+        });
+
+
+       
+
+        
+
+        
+
+
+
+        
+
+     
+
+    </script>
+
+</body>
+
+</html>

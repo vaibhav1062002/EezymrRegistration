@@ -1,0 +1,41 @@
+﻿.otp-field {
+    display: flex;
+}
+
+    .otp-field input {
+        width: 50px;
+        font-size: 32px;
+        padding: 0px;
+        text-align: center;
+        border-radius: 5px;
+        margin: 2px;
+        border: 2px solid #000000;
+        background: #ffffff;
+        font-weight: bold;
+        color: #279aff;
+        outline: none;
+        transition: all 0.1s;
+    }
+
+        .otp-field input:focus {
+            border: 2px solid #279aff;
+            box-shadow: 0 0 2px 2px #57abf4;
+        }
+
+.disabled {
+    opacity: 0.5;
+}
+
+.space {
+    margin-right: 1rem !important;
+}
+
+
+@media screen and (max-width: 1200px) {
+    .col-sm-6 {
+        -ms-flex: 0 0 50%;
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-top: 15px;
+    }
+}

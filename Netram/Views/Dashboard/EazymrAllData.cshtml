@@ -1,0 +1,275 @@
+﻿@model List<(Netram.Models.EazymrEntity, Netram.Models.SelectPackageEntity)>
+
+<!doctype html>
+<html lang="en">
+
+
+<!-- Mirrored from codervent.com/syndron/demo/vertical/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 16 Dec 2022 12:01:12 GMT -->
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--favicon-->
+	<link rel="icon" href="~/assets/images/favicon-32x32.png" type="image/png" />
+	<!--plugins-->
+	<link href="~/assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+	<link href="~/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+	<link href="~/assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+	<link href="~/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+	<!-- loader-->
+	<link href="~/assets/css/pace.min.css" rel="stylesheet" />
+	<script src="~/assets/js/pace.min.js"></script>
+	<!-- Bootstrap CSS -->
+	<link href="~/assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="~/assets/css/bootstrap-extended.css" rel="stylesheet">
+	<link href="~/assets/css/app.css" rel="stylesheet">
+	<link href="~/assets/css/icons.css" rel="stylesheet">
+	<!-- Theme Style CSS -->
+	<link rel="stylesheet" href="~/assets/css/dark-theme.css" />
+	<link rel="stylesheet" href="~/assets/css/semi-dark.css" />
+	<link rel="stylesheet" href="~/assets/css/header-colors.css" />
+	<title>EazyMr</title>
+</head>
+
+<body>
+	<!--wrapper-->
+	<div class="wrapper">
+		<!--sidebar wrapper -->
+		<div class="sidebar-wrapper" data-simplebar="true">
+			<div class="sidebar-header">
+				<div>
+					<img src="~/Images/logo.png" style="height:100%; width:100%;">
+				</div>
+				<div class="toggle-icon ms-auto">
+					<i class='bx bx-arrow-to-left'></i>
+				</div>
+			</div>
+
+			<!--navigation-->
+			<ul class="metismenu" id="menu">
+
+				<li>
+					<a href="/Dashboard/Dashboard">
+						<div class="parent-icon">
+							<i class="bx bx-right-arrow-alt"></i>
+						</div>
+						<div class="menu-title">Dashboard</div>
+					</a>
+				</li>
+
+				<li>
+					<a href="/Dashboard/FertilityMaster">
+						<div class="parent-icon">
+							<i class="bx bx-right-arrow-alt"></i>
+						</div>
+						<div class="menu-title">Add Fertility</div>
+					</a>
+				</li>
+
+				<li>
+					<a href="/Dashboard/SetPackage">
+						<div class="parent-icon">
+							<i class="bx bx-right-arrow-alt"></i>
+						</div>
+						<div class="menu-title">Set Package</div>
+					</a>
+				</li>
+
+				<li>
+					<a href="/Dashboard/EazymrAllData">
+						<div class="parent-icon">
+							<i class="bx bx-right-arrow-alt"></i>
+						</div>
+						<div class="menu-title">Selected Packages</div>
+					</a>
+				</li>
+
+
+
+			</ul>
+			<!--end navigation-->
+
+
+		</div>
+		<!--end sidebar wrapper -->
+		<!--start header -->
+		<header>
+
+			<div class="topbar d-flex align-items-center">
+				<nav class="navbar navbar-expand">
+					<div class="mobile-toggle-menu">
+						<i class='bx bx-menu'></i>
+					</div>
+					<div class="search-bar flex-grow-1">
+						<div class="position-relative search-bar-box">
+							<input type="text" class="form-control search-control" placeholder="Type to search..."> <span class="position-absolute top-50 search-show translate-middle-y"><i class='bx bx-search'></i></span>
+							<span class="position-absolute top-50 search-close translate-middle-y"><i class='bx bx-x'></i></span>
+						</div>
+					</div>
+
+
+				</nav>
+			</div>
+		</header>
+		<!--end header -->
+		<!--start page wrapper -->
+		<div class="page-wrapper">
+			<div class="page-content">
+
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+
+
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+
+								<li class="breadcrumb-item">
+									<a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page"></li>
+							</ol>
+
+
+						</nav>
+
+					</div>
+
+				</div>
+
+
+
+
+
+
+
+
+
+
+				<!--end breadcrumb-->
+				<hr />
+				<div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+
+							<table id="example" class="table table-striped table-bordered">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Doctor Name</th>
+										<th>Degree</th>
+										<th>Specialization</th>
+										<th>Registration Number</th>
+										<th>Email</th>
+										<th>Mobile Number</th>
+										<th>Hospital Name</th>
+										<th>Address</th>
+										<th>State</th>
+										<th>Pincode</th>
+										<th>City</th>
+										<th>Image</th>
+										<th>Number of Doctors</th>
+										<th>Fertility</th>
+										<th>Package</th>
+										<th>Apply Referral</th>
+										<th>Referral Code </th>
+										<th>Terms and Conditions</th>
+										<th>Package Price</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									@{
+										int Counter = 1;
+									}
+
+									@foreach (var tuple in Model)
+									{
+										var eazymrEntity = tuple.Item1;
+										var selectPackageEntity = tuple.Item2;
+
+										<tr>
+											<td>@Counter</td>
+											<td>@eazymrEntity.DoctorName</td>
+											<td>@eazymrEntity.Degree</td>
+											<td>@eazymrEntity.Specialization</td>
+											<td>@eazymrEntity.RegistrationNumber</td>
+											<td>@eazymrEntity.Email</td>
+											<td>@eazymrEntity.MobileNumber</td>
+											<td>@eazymrEntity.HospitalName</td>
+											<td>@eazymrEntity.Address</td>
+											<td>@eazymrEntity.State</td>
+											<td>@eazymrEntity.Pincode</td>
+											<td>@eazymrEntity.City</td>
+											<td><img src="~/@eazymrEntity.Image" alt="Doctor Image" style="width: 80px;" /></td>
+											<td>@selectPackageEntity.NumberOfDoctor</td>
+											<td>@selectPackageEntity.Fertility</td>
+											<td>@selectPackageEntity.Package</td>
+											<td>@selectPackageEntity.ApplyCoupon</td>
+											<td>@selectPackageEntity.CouponNumber</td>
+											<td>@selectPackageEntity.TAndC</td>
+											<td>@selectPackageEntity.PackagePrice</td>
+											<td style="display:flex; width: fit-content;">
+												<div>
+													<form action="/Dashboard/AllDataEditPage" method="post">
+														<input type="test" id="@eazymrEntity.JoinTable" name="JoinTable" value="@eazymrEntity.JoinTable" hidden />
+														<button class="btn btn-primary" type="submit">Edit</button>
+													</form>
+												</div>
+
+												<div style="margin-left:6px">
+													<form action="/Dashboard/DeleteFertility" method="post">
+														<input type="test" id="Id" name="Id" value="@eazymrEntity.JoinTable" hidden />
+														<button class="btn btn-outline-danger" type="submit">Delete</button>
+													</form>
+												</div>
+											</td>
+										</tr>
+
+
+										Counter++;
+									}
+
+								</tbody>
+
+							</table>
+
+
+						</div>
+					</div>
+				</div>
+
+
+
+			</div>
+		</div>
+		<!--end page wrapper -->
+		<!--start overlay-->
+		<div class="overlay toggle-icon"></div>
+		<!--end overlay-->
+		<!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+		<!--End Back To Top Button-->
+		<footer class="page-footer">
+			<p class="mb-0">Copyright EazyMR</p>
+		</footer>
+	</div>
+	<!--end wrapper-->
+	<!--start switcher-->
+	<!--end switcher-->
+	<!-- Bootstrap JS -->
+	<script src="~/assets/js/bootstrap.bundle.min.js"></script>
+	<!--plugins-->
+	<script src="~/assets/js/jquery.min.js"></script>
+	<script src="~/assets/plugins/simplebar/js/simplebar.min.js"></script>
+	<script src="~/assets/plugins/metismenu/js/metisMenu.min.js"></script>
+	<script src="~/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+	<script src="~/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+	<script src="~/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+	<script src="~/assets/js/table-datatable.js"></script>
+	<!--app JS-->
+	<script src="~/assets/js/app.js"></script>
+</body>
+
+
+<!-- Mirrored from codervent.com/syndron/demo/vertical/table-datatable.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 16 Dec 2022 12:04:49 GMT -->
+</html>

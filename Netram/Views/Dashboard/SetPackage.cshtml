@@ -1,0 +1,306 @@
+﻿@model Netram.ViewMiodels.SetPackageViewModel;
+
+<!doctype html>
+<html lang="en">
+
+
+<!-- Mirrored from codervent.com/syndron/demo/vertical/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 16 Dec 2022 12:01:12 GMT -->
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--favicon-->
+	<link rel="icon" href="~/assets/images/favicon-32x32.png" type="image/png"/>
+	<!--plugins-->
+	<link href="~/assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+	<link href="~/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+	<link href="~/assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+	<link href="~/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+	<!-- loader-->
+	<link href="~/assets/css/pace.min.css" rel="stylesheet" />
+	<script src="~/assets/js/pace.min.js"></script>
+	<!-- Bootstrap CSS -->
+	<link href="~/assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="~/assets/css/bootstrap-extended.css" rel="stylesheet">
+	<link href="~/assets/css/app.css" rel="stylesheet">
+	<link href="~/assets/css/icons.css" rel="stylesheet">
+	<!-- Theme Style CSS -->
+	<link rel="stylesheet" href="~/assets/css/dark-theme.css" />
+	<link rel="stylesheet" href="~/assets/css/semi-dark.css" />
+	<link rel="stylesheet" href="~/assets/css/header-colors.css" />
+	<title>Eezymr</title>
+</head>
+
+<body>
+	<!--wrapper-->
+	<div class="wrapper">
+		<!--sidebar wrapper -->
+		<div class="sidebar-wrapper" data-simplebar="true">
+			<div class="sidebar-header">
+				<div>
+					<img src="~/Images/logo.png" style="height:100%; width:100%;">
+				</div>
+				<div class="toggle-icon ms-auto">
+					<i class='bx bx-arrow-to-left'></i>
+				</div>
+			</div>
+			
+			<!--navigation-->
+			<ul class="metismenu" id="menu">
+
+				<li>
+					<a href="/Dashboard/Dashboard">
+						<div class="parent-icon">
+							<i class="bx bx-right-arrow-alt"></i>
+						</div>
+						<div class="menu-title">Dashboard</div>
+					</a>
+				</li>
+
+				<li>
+					<a href="/Dashboard/FertilityMaster">
+						<div class="parent-icon">
+							<i class="bx bx-right-arrow-alt"></i>
+						</div>
+						<div class="menu-title">Add Fertility</div>
+					</a>
+				</li>
+
+				<li>
+					<a href="/Dashboard/SetPackage">
+						<div class="parent-icon">
+							<i class="bx bx-right-arrow-alt"></i>
+						</div>
+						<div class="menu-title">Set Package</div>
+					</a>
+				</li>
+
+				
+
+				<li>
+					<a href="/Dashboard/EazymrAllData">
+						<div class="parent-icon">
+							<i class="bx bx-right-arrow-alt"></i>
+						</div>
+						<div class="menu-title">Selected Packages</div>
+					</a>
+				</li>
+
+
+			</ul>
+			<!--end navigation-->
+			
+			 
+		</div>
+		<!--end sidebar wrapper -->
+		<!--start header -->
+		<header>
+                        
+			<div class="topbar d-flex align-items-center">
+				<nav class="navbar navbar-expand">
+					<div class="mobile-toggle-menu"><i class='bx bx-menu'></i>
+					</div>
+					<div class="search-bar flex-grow-1">
+						<div class="position-relative search-bar-box">
+							<input type="text" class="form-control search-control" placeholder="Type to search..."> <span class="position-absolute top-50 search-show translate-middle-y"><i class='bx bx-search'></i></span>
+							<span class="position-absolute top-50 search-close translate-middle-y"><i class='bx bx-x'></i></span>
+						</div>
+					</div>
+				
+								
+				</nav>
+			</div>
+		</header>
+		<!--end header -->
+		<!--start page wrapper -->
+		<div class="page-wrapper">
+			<div class="page-content">
+
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">Tables</div>
+
+					
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page"></li>
+							</ol>
+
+							
+						</nav>
+						
+					</div>
+					
+				</div>
+				
+				@if (TempData["PackageAddedMessage"] != null)
+				{
+				<div class="alert alert-success" role="alert">
+						@TempData["PackageAddedMessage"]
+					</div>
+				}
+				@if (TempData["updatedPackage"] != null)
+				{
+					<div class="alert alert-success" role="alert">
+						@TempData["updatedPackage"]
+					</div>
+				}
+				@if (TempData["deletedPackage"] != null)
+				{
+					<div class="alert alert-success" role="alert">
+						@TempData["deletedPackage"]
+					</div>
+				}
+				
+	
+ <div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <h6 class="mb-0 text-uppercase">Tooltips</h6>
+            <hr />
+            <div class="p-4 border rounded">
+
+								<form class="row g-3" action="/Dashboard/AddPackageDetails" method="post">
+                
+
+									<div class="col-md-4 position-relative">
+										<label for="Fertility" class="form-label">Fertility</label>
+										<select class="multisteps-form__select form-control" name="Fertility" id="Fertility" asp-for="Fertility" required>
+											<option value="" selected="selected" disabled>Select Fertility</option>
+											@foreach (var fertilityData in Model.FertilityData){
+												<option value="@fertilityData.Fertility">@fertilityData.Fertility</option>
+											}
+										</select>
+									</div>
+
+
+                    <div class="col-md-4 position-relative">
+                        <label for="Package" class="form-label">Set Package</label>
+                        <input type="text" class="form-control" name="Package" id="Package" asp-for="Package" required>
+                        <span asp-validation-for="Package" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4 position-relative">
+               
+						
+						<label for="Price" class="form-label">Set Price</label>
+                        <input type="text" class="form-control" name="Price" id="Price" asp-for="Price" required>
+                        <span asp-validation-for="Price" class="text-danger"></span>
+     
+					</div>
+
+                    <div class="col-12">
+
+										<button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+
+                    <div class="col-12">
+                        <validation-summary></validation-summary>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div> 
+
+
+
+
+
+
+				<!--end breadcrumb-->
+				<hr/>
+				<div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="example" class="table table-striped table-bordered">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Fertility</th>
+										<th>Package</th>
+										<th>Price</th>
+										<th style="width: 40px;">Action</th>
+									
+									</tr>
+								</thead>
+								<tbody>
+									@{
+										int Counter = 1;
+									}
+
+									@foreach (var packageDetail in Model.PackageDetails)
+									{
+										<tr>
+										<td>@Counter</td>
+											<td>@packageDetail.Fertility</td>
+											<td>@packageDetail.Package</td>
+											<td>@packageDetail.Price</td>
+											<td style="display:flex; width: fit-content;">
+											<div>
+												<form action="/Dashboard/EditPackage" method="post">
+														<input type="test" id="Id" name="Id" value="@packageDetail.Id" hidden />
+													<button class="btn btn-primary" type="submit">Edit</button>
+											      </form>
+												</div>
+
+												  <div style="margin-left:6px">
+													<form action="/Dashboard/DeletePackageView" method="post">
+														<input type="test" id="Id" name="Id" value="@packageDetail.Id" hidden />
+													<button class="btn btn-outline-danger" type="submit">Delete</button>
+												</form>	
+												</div>
+										</td>
+										</tr>
+
+
+										Counter++; 
+									}
+									
+								</tbody>
+								
+							</table>
+						</div>
+					</div>
+				</div>
+				
+				
+				
+			</div>
+		</div>
+		<!--end page wrapper -->
+		<!--start overlay-->
+		<div class="overlay toggle-icon"></div>
+		<!--end overlay-->
+		<!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+		<!--End Back To Top Button-->
+		<footer class="page-footer">
+			<p class="mb-0">Copyright Eezymr</p>
+		</footer>
+	</div>
+	<!--end wrapper-->
+	<!--start switcher-->
+
+	<!--end switcher-->
+	<!-- Bootstrap JS -->
+	<script src="~/assets/js/bootstrap.bundle.min.js"></script>
+	<!--plugins-->
+	<script src="~/assets/js/jquery.min.js"></script>
+	<script src="~/assets/plugins/simplebar/js/simplebar.min.js"></script>
+	<script src="~/assets/plugins/metismenu/js/metisMenu.min.js"></script>
+	<script src="~/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+	<script src="~/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+	<script src="~/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+	<script src="~/assets/js/table-datatable.js"></script>
+	<!--app JS-->
+	<script src="~/assets/js/app.js"></script>
+</body>
+
+
+<!-- Mirrored from codervent.com/syndron/demo/vertical/table-datatable.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 16 Dec 2022 12:04:49 GMT -->
+</html>
