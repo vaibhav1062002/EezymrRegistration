@@ -68,9 +68,12 @@ namespace Netram.Models
             set { _joinTable = value;}
 		}
 
-		
 
-}
+        public String? PaymentStatus { get; set; }
+
+        public String? DeploymentStatus { get; set;}
+
+    }
 
 
 }

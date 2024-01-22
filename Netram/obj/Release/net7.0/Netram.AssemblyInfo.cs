@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Netram")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ad3abeb54fbf1478a4a2f8f146cbe84846312378")]
 [assembly: System.Reflection.AssemblyProductAttribute("Netram")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Netram")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

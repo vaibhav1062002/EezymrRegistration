@@ -175,7 +175,8 @@
 										<th>Referral Code </th>
 										<th>Terms and Conditions</th>
 										<th>Package Price</th>
-										<th>Action</th>
+										<th>Payment Status </th>
+										<th>Deployment Status</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -194,7 +195,7 @@
 											<td>@eazymrEntity.Degree</td>
 											<td>@eazymrEntity.Specialization</td>
 											<td>@eazymrEntity.RegistrationNumber</td>
-											<td>@eazymrEntity.Email</td>
+											<td id="Email">@eazymrEntity.Email</td>
 											<td>@eazymrEntity.MobileNumber</td>
 											<td>@eazymrEntity.HospitalName</td>
 											<td>@eazymrEntity.Address</td>
@@ -209,21 +210,69 @@
 											<td>@selectPackageEntity.CouponNumber</td>
 											<td>@selectPackageEntity.TAndC</td>
 											<td>@selectPackageEntity.PackagePrice</td>
-											<td style="display:flex; width: fit-content;">
-												<div>
-													<form action="/Dashboard/AllDataEditPage" method="post">
-														<input type="test" id="@eazymrEntity.JoinTable" name="JoinTable" value="@eazymrEntity.JoinTable" hidden />
-														<button class="btn btn-primary" type="submit">Edit</button>
-													</form>
+
+											<td>
+												<div class="col-md-12 position-relative">
+													<select class="multisteps-form__select form-control" name="PaymentStatus" id="PaymentStatus"
+															onchange="Status('@selectPackageEntity.JoinTable', this.value, this.closest('tr').querySelector('#DeploymentStatus').value, this.closest('tr').querySelector('#Email').textContent )"
+															asp-for="DeploymentStatus" style="font-size: small;">
+														<option value="" selected="selected" disabled>Payment Status </option>
+														@if (@selectPackageEntity.PaymentStatus == "Pending")
+														{
+															<option value="Pending" selected="selected">Pending</option>
+															<option value="Completed">Completed</option>
+														}
+														else if (@selectPackageEntity.PaymentStatus == "Completed")
+														{
+															<option value="Pending">Pending</option>
+															<option value="Completed" selected="selected">Completed</option>
+														}
+													</select>
 												</div>
 
-												<div style="margin-left:6px">
-													<form action="/Dashboard/DeleteFertility" method="post">
-														<input type="test" id="Id" name="Id" value="@eazymrEntity.JoinTable" hidden />
-														<button class="btn btn-outline-danger" type="submit">Delete</button>
-													</form>
+											</td>
+											<td>
+												<div class="col-md-12 position-relative">
+													@if (selectPackageEntity.PaymentStatus == "Pending")
+													{
+														<select class="multisteps-form__select form-control" name="DeploymentStatus" id="DeploymentStatus"
+																onchange="Status('@selectPackageEntity.JoinTable', this.closest('tr').querySelector('#PaymentStatus').value, this.value ,this.closest('tr').querySelector('#Email').textContent)"
+																asp-for="DeploymentStatus" style="font-size: small;" disabled>
+															<option value="" selected="selected" disabled>Deployment Status </option>
+															@if (selectPackageEntity.DeploymentStatus == "Pending")
+															{
+																<option value="Pending" selected="selected">Pending</option>
+																<option value="Completed">Completed</option>
+															}
+															else if (selectPackageEntity.DeploymentStatus == "Completed")
+															{
+																<option value="Pending">Pending</option>
+																<option value="Completed" selected="selected">Completed</option>
+															}
+														</select>
+													}
+													else if (selectPackageEntity.PaymentStatus == "Completed")
+													{
+														<select class="multisteps-form__select form-control" name="DeploymentStatus" id="DeploymentStatus"
+																onchange="Status('@selectPackageEntity.JoinTable', this.closest('tr').querySelector('#PaymentStatus').value, this.value , this.closest('tr').querySelector('#Email').textContent)"
+																asp-for="DeploymentStatus" style="font-size: small;">
+															<option value="" selected="selected" disabled>Deployment Status </option>
+															@if (selectPackageEntity.DeploymentStatus == "Pending")
+															{
+																<option value="Pending" selected="selected">Pending</option>
+																<option value="Completed">Completed</option>
+															}
+															else if (selectPackageEntity.DeploymentStatus == "Completed")
+															{
+																<option value="Pending">Pending</option>
+																<option value="Completed" selected="selected">Completed</option>
+															}
+														</select>
+													}
 												</div>
 											</td>
+
+
 										</tr>
 
 
@@ -250,7 +299,7 @@
 		<!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
 		<!--End Back To Top Button-->
 		<footer class="page-footer">
-			<p class="mb-0">Copyright EazyMR</p>
+			<p class="mb-0">Copyright EezyMR</p>
 		</footer>
 	</div>
 	<!--end wrapper-->
@@ -268,6 +317,36 @@
 	<script src="~/assets/js/table-datatable.js"></script>
 	<!--app JS-->
 	<script src="~/assets/js/app.js"></script>
+
+
+	<script>
+		function Status(Value1, value2, value3, value4) {
+			var data = {
+				joinTable: Value1,
+				PaymentStatus: value2,
+				DeploymentStatus: value3,
+				Email: value4
+			};
+
+			console.log(`${data.joinTable} ${data.PaymentStatus} ${data.DeploymentStatus} ${data.Email}`);
+			// Rest of your JavaScript code
+
+			$.ajax({
+				method: "POST",
+				url: "/Dashboard/UpdateStatus",
+				data: data,
+				success: function (data) {
+					location.reload();
+				},
+				error: function (err) {
+					
+				}
+			});
+		}
+	</script>
+
+
+
 </body>
 
 

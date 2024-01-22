@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Netram.Models;
 using Netram.ViewMiodels;
+using System.Net.Mail;
+using System.Net;
 
 namespace Netram.Controllers
 {
@@ -285,6 +287,82 @@ namespace Netram.Controllers
 
 			return View("demo", allData);
 
+		}
+
+
+		// update status 
+
+		public IActionResult UpdateStatus(string JoinTable, string PaymentStatus, string DeploymentStatus,string Email)
+		{
+			EazymrReposetory repository = new EazymrReposetory();
+			    if(repository.UpdateStatus(JoinTable, PaymentStatus, DeploymentStatus)){
+				List<(EazymrEntity, SelectPackageEntity)> eazymrData2 = repository.getAllEazymrData();
+
+				if(PaymentStatus == "Completed")
+				{
+
+					string UserEmail = Email;
+
+					string fromMail = "easyemr3010@gmail.com";
+					string fromPassword = "lwybpqfunvlzkifh";
+
+					MailMessage message = new MailMessage();
+					message.From = new MailAddress(fromMail);
+					message.Subject = "Confirmation of Successful Payment for Your EazyMr Package";
+					message.To.Add(new MailAddress(UserEmail));
+					message.Body = "<html><body>" +
+		   "<p>We are pleased to inform you that the payment for your selected package has been successfully processed. Thank you for choosing EezyMr </p>" +
+		   "<p>If you have any questions or require further assistance, please do not hesitate to contact our support team at support@Eezymr.com</p>" +
+		   "<p>Best regards,<br/>The EezyMr Team</p></body></html>";
+
+					message.IsBodyHtml = true;
+
+					var smtpClient = new SmtpClient("smtp.gmail.com")
+					{
+						Port = 587,
+						Credentials = new NetworkCredential(fromMail, fromPassword),
+						EnableSsl = true,
+					};
+
+					smtpClient.Send(message);
+
+				}
+			
+
+				if(DeploymentStatus == "Completed")
+				{
+					string UserEmail = Email;
+
+					string fromMail = "easyemr3010@gmail.com";
+					string fromPassword = "lwybpqfunvlzkifh";
+
+					MailMessage message = new MailMessage();
+					message.From = new MailAddress(fromMail);
+					message.Subject = "Confirmation: Successful Completion of Deployment";
+					message.To.Add(new MailAddress(UserEmail));
+					message.Body = "<html><body>" +
+		   "<p>We are delighted to announce that the deployment for your selected package has been successfully completed. Thank you for choosing EezyMr.</p>" +
+		   "<p>If you have any questions or require further assistance, please do not hesitate to contact our support team at support@Eezymr.com</p>" +
+		   "<p>Best regards,<br/>The EezyMr Team</p></body></html>";
+
+					message.IsBodyHtml = true;
+
+					var smtpClient = new SmtpClient("smtp.gmail.com")
+					{
+						Port = 587,
+						Credentials = new NetworkCredential(fromMail, fromPassword),
+						EnableSsl = true,
+					};
+
+					smtpClient.Send(message);
+
+				}
+
+				return View("EazymrAllData", eazymrData2);
+			}
+
+          List<(EazymrEntity, SelectPackageEntity)> eazymrData3 = repository.getAllEazymrData();
+			return View("EazymrAllData", eazymrData3);
 		}
 
 	}

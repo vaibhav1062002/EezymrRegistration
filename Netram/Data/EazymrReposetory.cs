@@ -166,7 +166,7 @@ public class EazymrReposetory
 
 		_connection.Open();
 
-		string query = "SELECT doctorDetails.DoctorName, doctorDetails.Degree, doctorDetails.Specialization, doctorDetails.RegistrationNumber, doctorDetails.Email, doctorDetails.MobileNumber, doctorDetails.HospitalName, doctorDetails.Address, doctorDetails.State, doctorDetails.Pincode, doctorDetails.City, doctorDetails.Image, doctorDetails.JoinTable, selectedPackage.NumberOfDoctor, selectedPackage.Fertility, selectedPackage.Package, selectedPackage.ApplyCoupon, selectedPackage.CouponNumber, selectedPackage.TAndC, selectedPackage.PackagePrice FROM doctorDetails INNER JOIN selectedPackage ON doctorDetails.JoinTable = selectedPackage.JoinTable ORDER BY doctorDetails.Id DESC";
+		string query = "SELECT doctorDetails.DoctorName, doctorDetails.Degree, doctorDetails.Specialization, doctorDetails.RegistrationNumber, doctorDetails.Email, doctorDetails.MobileNumber, doctorDetails.HospitalName, doctorDetails.Address, doctorDetails.State, doctorDetails.Pincode, doctorDetails.City, doctorDetails.Image, doctorDetails.JoinTable, selectedPackage.NumberOfDoctor, selectedPackage.Fertility, selectedPackage.Package, selectedPackage.ApplyCoupon, selectedPackage.CouponNumber, selectedPackage.TAndC, selectedPackage.PackagePrice,  selectedPackage.PaymentStatus, selectedPackage.JoinTable, selectedPackage.DeploymentStatus FROM doctorDetails INNER JOIN selectedPackage ON doctorDetails.JoinTable = selectedPackage.JoinTable ORDER BY doctorDetails.Id DESC";
 
 
 		using (MySqlCommand command = new MySqlCommand(query, _connection))
@@ -200,7 +200,11 @@ public class EazymrReposetory
 						ApplyCoupon = reader["ApplyCoupon"].ToString(),
 						CouponNumber = reader["CouponNumber"].ToString(),
 						TAndC = reader["TAndC"].ToString(),
-						PackagePrice = reader["PackagePrice"].ToString()
+						PackagePrice = reader["PackagePrice"].ToString(),
+						PaymentStatus = reader["PaymentStatus"].ToString(),
+						DeploymentStatus = reader["DeploymentStatus"].ToString(),
+						JoinTable = reader["JoinTable"].ToString(),
+
 					};
 
 					result.Add((eazymr, selectPackage));
@@ -466,6 +470,29 @@ public class EazymrReposetory
 		return result;
 	}
 
+
+
+
+	//Update Status  
+
+	public bool UpdateStatus(string JoinTable, string PaymentStatus, string DeploymentStatus)
+	{
+		string query = "UPDATE selectedpackage SET PaymentStatus=@PaymentStatus, DeploymentStatus=@DeploymentStatus WHERE JoinTable=@JoinTable";
+
+		using (MySqlCommand cmd = new MySqlCommand(query, _connection))
+		{
+			cmd.Parameters.AddWithValue("@JoinTable", JoinTable);
+			cmd.Parameters.AddWithValue("@PaymentStatus", PaymentStatus);
+			cmd.Parameters.AddWithValue("@DeploymentStatus", DeploymentStatus);
+
+
+			_connection.Open();
+			int i = cmd.ExecuteNonQuery();
+			_connection.Close();
+			if (i >= 1) { return true; }
+			else { return false; }
+		}
+	}
 
 }
 

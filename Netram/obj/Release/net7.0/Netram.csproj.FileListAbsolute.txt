@@ -92,3 +92,4 @@ C:\Users\vaibh\Desktop\NETRAM\Netram\Netram\obj\Release\net7.0\refint\Netram.dll
 C:\Users\vaibh\Desktop\NETRAM\Netram\Netram\obj\Release\net7.0\Netram.pdb
 C:\Users\vaibh\Desktop\NETRAM\Netram\Netram\obj\Release\net7.0\Netram.genruntimeconfig.cache
 C:\Users\vaibh\Desktop\NETRAM\Netram\Netram\obj\Release\net7.0\ref\Netram.dll
+C:\Users\vaibh\Desktop\NETRAM\netram\netram\obj\Release\net7.0\Netram.sourcelink.json

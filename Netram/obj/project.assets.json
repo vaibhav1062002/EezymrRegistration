@@ -2797,11 +2797,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vaibh\\Desktop\\NETRAM\\Netram\\Netram\\Netram.csproj",
+      "projectUniqueName": "C:\\Users\\vaibh\\Desktop\\NETRAM\\netram\\netram\\Netram.csproj",
       "projectName": "Netram",
-      "projectPath": "C:\\Users\\vaibh\\Desktop\\NETRAM\\Netram\\Netram\\Netram.csproj",
+      "projectPath": "C:\\Users\\vaibh\\Desktop\\NETRAM\\netram\\netram\\Netram.csproj",
       "packagesPath": "C:\\Users\\vaibh\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vaibh\\Desktop\\NETRAM\\Netram\\Netram\\obj\\",
+      "outputPath": "C:\\Users\\vaibh\\Desktop\\NETRAM\\netram\\netram\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\vaibh\\AppData\\Roaming\\NuGet\\NuGet.Config",
